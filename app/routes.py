@@ -25,11 +25,9 @@ def get_commission(price):
 @routes.route("/office_sales", methods=['GET'])
 def office_sales():
     try:
-        # data = request.get_json()
-        # month = data['month']
-        # year = data['year']
-        month = 3
-        year = 2019
+        data = request.get_json()
+        month = data['month']
+        year = data['year']
 
         offices = db.session.query(Office.id, Office.name, func.count(Commission.agent_id)).filter(
             Office.id == AgentOffice.office_id
@@ -60,8 +58,9 @@ def office_sales():
 @routes.route("/agents_sales", methods=['GET'])
 def agents_sales():
     try:
-        month = 3
-        year = 2019
+        data = request.get_json()
+        month = data['month']
+        year = data['year']
 
         agents = db.session.query(
             Agent.id, 
@@ -148,8 +147,9 @@ def create_sale():
 @routes.route("/average_days", methods=['GET'])
 def average_days():
     try:
-        month = 3
-        year = 2019
+        data = request.get_json()
+        month = data['month']
+        year = data['year']
 
         sales = db.session.query(
             Sale.house_id, Sale.sale_date, House.listing_date).join(House).filter(
@@ -174,8 +174,9 @@ def average_days():
 @routes.route("/average_price", methods=['GET'])
 def average_price():
     try:
-        month = 3
-        year = 2019
+        data = request.get_json()
+        month = data['month']
+        year = data['year']
 
         sales = db.session.query(
             Sale.house_id, House.price).join(House).filter(
@@ -200,8 +201,9 @@ def average_price():
 @routes.route("/average_price_zipcode", methods=['GET'])
 def average_price_zipcode():
     try:
-        month = 3
-        year = 2019
+        data = request.get_json()
+        month = data['month']
+        year = data['year']
 
         sales = db.session.query(
             House.zip_code, 
