@@ -2,9 +2,9 @@
 
 This Backend was deployd on AWS, using:
 
-- RDS for Database.
+- Amazon RDS for Database.
 - API Gateway to allow communication via API with AWS resources.
-- AWS Lambda to run serverless code that queries our RDS instance.
+- AWS Lambda to run serverless code that queries our RDS Database.
 
 ## API
 
@@ -17,7 +17,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -26,7 +26,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -35,7 +35,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -44,7 +44,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -53,7 +53,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -62,7 +62,7 @@ Main endpoint: `https://19xkrhb7j6.execute-api.us-east-1.amazonaws.com/prod`
 ```
 {
     "month": 3,
-	"year": 2019
+    "year": 2019
 }
 ```
 
@@ -78,21 +78,21 @@ All endpoints have the same respose structure as a JSON:
 
 Base tables: Agent, User, Office, AgentOffice, House, Sale, Commission, Summary.
 
-Agent: Holds information of real estate agents.
+**Agent**: Holds information of real estate agents.
 
-User: Holds information of our users, they are the ones who buy and sell properties.
+**User**: Holds information of our users, they are the ones who buy and sell properties.
 
-Office: Holds information of a given office.
+**Office**: Holds information of a given office.
 
-AgentOffice: Holds information on what agents works for what office. This normalized table allow for agents to work for multiple offices.
+**AgentOffice**: Holds information on what agents works for what office. This normalized table allow for agents to work for multiple offices.
 
-House: Holds information of a given house that is either for sale or was already sold.
+**House**: Holds information of a given house that is either for sale or was already sold.
 
-Sale: Holds information on what house was sold to what buyer. 'price' is repeated/denormalized here in case there was any change(discount) on the 'price' listed on the previous table (House).
+**Sale**: Holds information on what house was sold to what buyer. 'price' is repeated/denormalized here in case there was any change(discount) on the 'price' listed on the previous table (House).
 
-Commission: Holds commission information for a given sale and for a given agent. Having this data normalized allow us to have multiple agents helping in a single house sale.
+**Commission**: Holds commission information for a given sale and for a given agent. Having this data normalized allow us to have multiple agents helping in a single house sale.
 
-Summary: Holds information on total sales and total commissions, updated with every new sale. Allow quick lookup on those values. I.E: if this information is listed on the website's homepage we can get them from this table, to ensure that the data is up to date.
+**Summary**: Holds information on total sales and total commissions, updated with every new sale. Allow quick lookup on those values. I.E: if this information is listed on the website's homepage we can get them from this table, to ensure that the data is up to date.
 
 OBS: There are a few indexes on those tables that might help in the future to make queries faster, such as: agent_id on House table, price on House and Sale tables... They should be created/removed based on their tradeoffs (faster query vs additional storage) and how the scaling of the system is going.
 
