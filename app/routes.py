@@ -1,6 +1,6 @@
 from flask.cli import with_appcontext
 from flask import Flask, render_template, request, redirect, url_for, Blueprint, flash
-from .models import db, Agent, User, Office, AgentOffice, House, Sale, Commission
+from .models import db, Agent, User, Office, AgentOffice, House, Sale, Commission, Summary
 from datetime import datetime
 from sqlalchemy import extract, func, text, cast, Date
 import json
@@ -112,7 +112,6 @@ def create_sale():
             house=house,
             buyer=buyer,
             price=data['price'],
-            commission=commission,
             sale_date=datetime.strptime(data['sale_date'], "%d/%m/%Y")
         )
         commission = Commission(

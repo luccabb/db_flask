@@ -1,6 +1,6 @@
 from flask.cli import with_appcontext
 from flask import Flask, render_template, request, redirect, url_for, Blueprint, flash
-from .models import db, Agent, User, Office, AgentOffice, House, Sale, Commission
+from .models import db, Agent, User, Office, AgentOffice, House, Sale, Commission, Summary
 import datetime
 
 # new application blueprint for auth related tasks
@@ -118,6 +118,7 @@ def seed_command():
         [17, 4, 3,  440000.00, 94104, datetime.datetime(2007,  2,  5), 2, 5, True],
         [18, 3, 2,  680000.99, 94104, datetime.datetime(2009, 12,  2), 3, 3, True],
         [19, 1, 2, 1560000.50, 94102, datetime.datetime(2005, 10, 26), 4, 5, True],
+        [20, 2, 2, 1230000.00, 94102, datetime.datetime(2005, 10, 26), 2, 3, False],
     ]
     insert_db(House, house_columns, house_data)
 
@@ -158,5 +159,15 @@ def seed_command():
 
     insert_db(Commission, commission_columns, commission_data)
 
+    summary_columns= ['id', 'total_sales', 'total_commissions']
+    # getting total commissions
+    all_commissions_filter = lambda x: get_commission(x[3])
+    total_commissions = sum(list(map(all_commissions_filter, sale_data)))
+    # getting total sales
+    all_sales_filter = lambda x: x[3]
+    total_sales = sum(list(map(all_sales_filter, sale_data)))
 
+    summary_data = [[1, total_sales, total_commissions]]
+    
+    insert_db(Summary, summary_columns, summary_data)
 
