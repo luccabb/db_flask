@@ -132,6 +132,8 @@ Install dependencies in virtual environment:
 
 ## Integration tests
 
+Docker mysql DB URL when running locally: `mysql://root:test_password@host.docker.internal:3306/main`. This should be updated on .env to ensure that it points to your Docker Database when running integration tests.
+
 The environment has 2 containers: one for the web server and one for the database. Those tests exist to check whether the backend is doing the right thing.
 
     $ docker-compose up
@@ -141,8 +143,6 @@ The environment has 2 containers: one for the web server and one for the databas
 If all tests passed
 
     $ docker-compose down
-
-Docker mysql DB URL when running locally: `mysql://root:test_password@host.docker.internal:3306/main`. This should be updated on .env to ensure that it points to our Docker Database.
 
 ## Run Application Locally
 
